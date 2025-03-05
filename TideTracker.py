@@ -253,7 +253,9 @@ def get_tide_data(station_id):
         df.set_index('t', inplace=True)
         
         # Convert 'v' to float
-        df['v'] = df['v'].astype(float)
+        df['v'] = pd.to_numeric(df['v'], errors='coerce')
+        df.dropna(subset=['v'], inplace=True) #double check spacing here, weird copy/paste issue
+
         
         print("WaterLevel data structure:")
         print(df.head())
